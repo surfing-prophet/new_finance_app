@@ -7,7 +7,6 @@ db = pd.read_csv('data/banking.csv')
 
 def show_home():
     st.title("Home Page")
-    st.write("Welcome to the homepage")
 
     # ---standard data from data/church_info.csv ---#
     col1, col2 = st.columns([2, 1], vertical_alignment='center')
