@@ -1,6 +1,7 @@
 # function.py
 FILEPATH_BANKING = "data/banking.csv"
 FILEPATH_OFFERING = "data/offering.csv"
+FILEPATH_GROUPS="data/booking_groups.txt"
 import streamlit as st
 import pandas as pd
 
@@ -19,6 +20,7 @@ def show_property():
     st.switch_page("properties.py")
 def show_charities():
     st.switch_page("charities.py")
+
 
 #---calling Banking information ---#
 
@@ -44,10 +46,33 @@ def weekly_reported_offering(data):
         df = pd.read_csv('offering.csv')
     except FileNotFoundError:
         # If the file does not exist, create a new DataFrame
-        df = pd.DataFrame(columns=["date", "reason", "amount"])
+        df = pd.DataFrame(columns=["date", "reason", "amount", "notes"])
 
     # Append the new data
     df = df.append(data, ignore_index=True)
     df.to_csv('offering.csv', index=False)
+#---information for booking page---#
+def get_groups(filepath=FILEPATH_GROUPS): #Calls the text file with the different groups
+    #read the txt file
+    with open(filepath,'r') as booked_groups:
+        groups = booked_groups.readlines()
+        return groups
+
+def write_groups (groups_arg, filepath=FILEPATH_GROUPS): # Writes a new group to the .txt file
+    """Writes new group item in the text file"""
+    with open (filepath,'a') as file:
+        file.write(groups_arg +'\n')
+
+def group_payments(data):
+    # Check if the file exists
+    try:
+        df = pd.read_csv('group_payments.csv')
+    except FileNotFoundError:
+        # If the file does not exist, create a new DataFrame
+        df = pd.DataFrame(columns=["date", "group", "amount", "notes"])
+
+    # Append the new data
+    df = df.append(data, ignore_index=True)
+    df.to_csv('group_payments.csv', index=False)
 
 
