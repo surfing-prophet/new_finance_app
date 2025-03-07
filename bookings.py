@@ -5,7 +5,6 @@ import csv
 from datetime import datetime
 from functions import get_groups, group_payments, write_groups
 
-
 def show_bookings():
     # --add standard header--#
 
@@ -13,17 +12,20 @@ def show_bookings():
     with col1:
         st.markdown('<b><h1>Methodist Suite of Finances</b></h1>', unsafe_allow_html=True)
         st.header("Bookings Page")
-        st.write("This is where you can manage your bookings.")
+        current_date = datetime.now().strftime("%d-%m-%y")
+        st.markdown(f"<b><h5>{current_date}</b></h5>", unsafe_allow_html=True)
+        st.markdown(f"<h5>Input the payments from user groups.</h5>", unsafe_allow_html=True)
         # Add more content and functionality here
 
     with col2:
         st.image('images/Briggswath_Logo.png')
         get_groups()
 
-        if 'new_group' not in st.session_state:
-            st.session_state.new_group = ''
 
-        new_group = st.text_input("Input the name of a new group and click add new group.",
+        if 'new_group' not in st.session_state:
+            st.session_state.new_group = ""
+
+        new_group = st.text_input("",
                                    placeholder="Add new group" if not st.session_state.new_group else "",
                                    value=None, key='emp_state')
 
@@ -34,12 +36,15 @@ def show_bookings():
 
     st.markdown(f"<hr></hr>", unsafe_allow_html=True)
 
-    col3, col4, col5 = st.columns([2, 2, 2])
+
+
+    col3, col4, col5 = st.columns([2, 2, 1])
     with col3:
         st.markdown(f"<b><h5>Select the group to enter data from</b></h5>", unsafe_allow_html=True)
         groups = get_groups()
         option = st.selectbox("Groups on record", groups)
         st.markdown(f"<b><h5>Currently Selected Group = {option}</b></h5>", unsafe_allow_html=True)
+        st.write("")
     with col4:
         st.markdown(f"<b><h5>Please input the fee recieved from the selected group</b></h5>", unsafe_allow_html=True)
         fees = st.text_input("fee received :") or 0

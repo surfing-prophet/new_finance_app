@@ -11,6 +11,9 @@ def show_offering():
     col1, col2 = st.columns([2, 1], vertical_alignment='top')
     with col1:
         st.markdown('<b><h1>Methodist Suite of Finances</b></h1>', unsafe_allow_html=True)
+        st.header("Weekly Offerings.")
+        current_date = datetime.now().strftime("%d-%m-%y")
+        st.markdown(f"<b><h5>{current_date}</b></h5>", unsafe_allow_html=True)
     with col2:
         st.image('images/Briggswath_Logo.png')
     st.markdown('<hr></hr>', unsafe_allow_html=True)
@@ -101,10 +104,10 @@ def show_offering():
 
             data_copy1 = user_df.copy()
             data_copy2 = user_df.copy()
-            st.dataframe(data_copy1)
+            st.dataframe(data_copy2)
         # ---open offering.csv from data---#
             df = pd.read_csv("data\offering.csv")
-            df = pd.concat([df,pd.DataFrame(data_copy2)])
+            df = pd.concat([df,pd.DataFrame(data_copy1)])
             filtered_df=df[df['amount'] !=0]
             filtered_df.to_csv("data\offering.csv", index=False)
 

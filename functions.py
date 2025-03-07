@@ -2,6 +2,7 @@
 FILEPATH_BANKING = "data/banking.csv"
 FILEPATH_OFFERING = "data/offering.csv"
 FILEPATH_GROUPS="data/booking_groups.txt"
+FILEPATH_UTILITIES="data/utility.csv"
 import streamlit as st
 import pandas as pd
 
@@ -74,5 +75,6 @@ def group_payments(data):
     # Append the new data
     df = df.append(data, ignore_index=True)
     df.to_csv('group_payments.csv', index=False)
+
 
 

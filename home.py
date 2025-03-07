@@ -1,17 +1,21 @@
 import streamlit as st
 import pandas as pd
+from datetime import datetime
 from functions import available_funds
 
 df = pd.read_csv('data/church_info.csv', sep=',')
 db = pd.read_csv('data/banking.csv')
 
 def show_home():
-    st.title("Home Page")
 
     # ---standard data from data/church_info.csv ---#
     col1, col2 = st.columns([2, 1], vertical_alignment='center')
     with col1:
         st.markdown('<b><h1>Methodist Suite of Finances</b></h1>', unsafe_allow_html=True)
+        st.header("Home Page")
+        current_date = datetime.now().strftime("%d-%m-%y")
+        st.markdown(f"<b><h5>{current_date}</b></h5>",unsafe_allow_html=True)
+
     with col2:
         st.image('images/Briggswath_Logo.png')
     st.markdown('<hr></hr>', unsafe_allow_html=True)
