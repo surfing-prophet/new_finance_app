@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from functions import property_rents
+from functions import calculate_rent_and_fee
 from datetime import datetime
 
 
@@ -30,18 +30,19 @@ def show_properties():
         col3a,col3b=st.columns([1,2], vertical_alignment='top')
         with col3a:
             st.markdown(f'<b><h3>Monthly Rent: </b></h3>', unsafe_allow_html=True)
-            st.markdown(f'<b><h3>Agents Fee: </b></h3>', unsafe_allow_html=True)
+            st.markdown(f'<b><h3>Agents Fee: </b></h3><h5>10% +VAT (@20%)', unsafe_allow_html=True)
             st.markdown(f'<b><h3>Total Rental Income: </b></h3>', unsafe_allow_html=True)
 
         with col3b:
             rent2=st.text_input('',placeholder='input rent recieved',key=RENT2) or 0
             rent2_float=round(float(rent2),2)
-            ag_fee2=(rent2_float*.1)
-            st.write("")
-            st.write("")
-            st.markdown(f'<b></h3>£{ag_fee2}</b></h3>', unsafe_allow_html=True)
-            rent2_total=round(rent2_float - ag_fee2)
-            st.write("")
+            ag_fee2 = (rent2_float * .1)
+            ag_VAT_2 = round(float(ag_fee2 * .2),2)
+            ag_total_fee2 = (ag_fee2 + ag_VAT_2)
+            st.markdown(f'<h3></h3>', unsafe_allow_html=True)
+            st.markdown(f'<b></h3>£{ag_total_fee2}</b></h3>', unsafe_allow_html=True)
+            rent2_total = round(float(rent2_float - ag_total_fee2),2)
+            st.markdown(f'<h3></h3>', unsafe_allow_html=True)
             st.markdown(f'<b><h3>£{rent2_total}</b></h3>', unsafe_allow_html=True)
     with col4:
         st.header('4 Carr Hill Lane Property')
@@ -50,18 +51,19 @@ def show_properties():
         col4a, col4b = st.columns([1,2], vertical_alignment='top')
         with col4a:
             st.markdown(f'<b><h3>Monthly Rent: </b></h3>', unsafe_allow_html=True)
-            st.markdown(f'<b><h3>Agents Fee: </b></h3>', unsafe_allow_html=True)
+            st.markdown(f'<b><h3>Agents Fee: </b></h3><h5>10% +VAT (@20%)', unsafe_allow_html=True)
             st.markdown(f'<b><h3>Total Rental Income: </b></h3>', unsafe_allow_html=True)
         with col4b:
             rent4 = st.text_input('', placeholder='input rent recieved', key=RENT4) or 0
             rent4_float = round(float(rent4),2)
-            ag_fee4 = (rent4_float * .1)
-            st.write("")
-            st.write("")
-            st.markdown(f'<b></h3>£{ag_fee4}</b></h3>', unsafe_allow_html=True)
-            rent4_total = round(rent4_float - ag_fee4)
+            ag_fee4 = round(float(rent4_float * .1),2)
+            ag_VAT_4=round(float(ag_fee4*.2),2)
+            ag_total_fee4=round(float(ag_fee4+ag_VAT_4),2)
+            st.markdown(f'<h3></h3>',  unsafe_allow_html=True)
+            st.markdown(f'<b></h3>£{ag_total_fee4}</b></h3>', unsafe_allow_html=True)
+            rent4_total = round(float(rent4_float - ag_total_fee4),2)
 
-            st.write("")
+            st.markdown(f'<h3></h3>',  unsafe_allow_html=True)
             st.markdown(f'<b><h3>£{rent4_total}</b></h3>', unsafe_allow_html=True)
 
     colsub2,colcon2,colsub4,colcon4 = st.columns([2,2,2,2])
@@ -71,7 +73,7 @@ def show_properties():
 
             #create dataset for rents 2 Carr Hill Lane
             two_CHL = pd.Series({'date':current_date,'cottage':"2 Carr Hill Lane",
-                                 'rent':rent2,'fees':ag_fee2,'recieved rent':rent2_total})
+                                 'rent':rent2,'fees':ag_total_fee2,'recieved rent':rent2_total})
             user_df2=[two_CHL]
             st.dataframe(user_df2)
             st.markdown(f"<b><h5>Please Check the entry carefully, then click commit</b></hr>", unsafe_allow_html=True)
@@ -81,7 +83,7 @@ def show_properties():
 
             # create dataset for rents 2 Carr Hill Lane
             two_CHL = pd.Series({'date': current_date, 'cottage': "2 Carr Hill Lane",
-                                 'rent': rent2, 'fees': ag_fee2, 'recieved rent': rent2_total})
+                                 'rent': rent2, 'fees': ag_total_fee2, 'recieved rent': rent2_total})
             user_df2 = [two_CHL]
             st.dataframe(user_df2)
 
@@ -98,7 +100,7 @@ def show_properties():
 
                 #create dataset for rents 4 Carr Hill Lane
             four_CHL = pd.Series({'date':current_date,'cottage':"4 Carr Hill Lane",
-                                      'rent':rent4,'fees':ag_fee4,'recieved rent':rent4_total})
+                                      'rent':rent4,'fees':ag_total_fee4,'recieved rent':rent4_total})
             user_df4=[four_CHL]
             st.dataframe(user_df4)
             st.markdown(f"<b><h5>Please Check the entry carefully, then click commit</b></hr>", unsafe_allow_html=True)
@@ -108,7 +110,7 @@ def show_properties():
 
             # create dataset for rents 4 Carr Hill Lane
             four_CHL = pd.Series({'date': current_date, 'cottage': "4 Carr Hill Lane",
-                                      'rent': rent4, 'fees': ag_fee4, 'recieved rent': rent4_total})
+                                      'rent': rent4, 'fees': ag_total_fee4, 'recieved rent': rent4_total})
             user_df4 = [four_CHL]
             st.dataframe(user_df4)
 

@@ -6,6 +6,7 @@ from home import show_home
 from offering import show_offering
 from utilities import show_utilities
 from properties import show_properties
+from church import show_church
 
 #---create page homepage ---#
 st.set_page_config(layout='wide')
@@ -29,9 +30,9 @@ db = pd.read_csv('data/banking.csv')
 from streamlit_option_menu import option_menu
 
 with st.sidebar:
-    selected = option_menu("Main Menu", ["Home", 'Bookings', 'Offering', 'Utilities',
+    selected = option_menu("Main Menu", ["Home", 'Offering', 'Bookings', 'Utilities',
                                           'Property', 'Church','IN/OUT'],
-                           icons=['house', 'calendar-date', 'gift', 'lightning-charge-fill', 'houses', 'hospital', 'repeat'],
+                           icons=['bank', 'currency-pound', 'calendar-date', 'fire', 'houses', 'hospital', 'gift'],
                            menu_icon="cast", default_index=0)
 
 if selected == "Home":
@@ -44,7 +45,7 @@ elif selected=="Utilities":
     show_utilities()
 elif selected=="Property":
     show_properties()
-#elif selected=='Church':
-    #show_church()
+elif selected=='Church':
+    show_church()
 #elif selected == "IN/OUT":
  #   show_charities()
