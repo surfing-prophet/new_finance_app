@@ -19,6 +19,8 @@ def show_utilities():
     st.switch_page("utilities.py")
 def show_property():
     st.switch_page("properties.py")
+def show_church():
+    st.switch_page("Church.py")
 def show_charities():
     st.switch_page("charities.py")
 
@@ -76,5 +78,13 @@ def group_payments(data):
     df = df.append(data, ignore_index=True)
     df.to_csv('group_payments.csv', index=False)
 
+def property_rents():
+    try:
+        df =pd.read_csv(r'data\property_rents')
+    except FileNotFoundError:
+        df=pd.DataFrame(columns=['date','cottage','rent','fees','recieved rent'])
+
+        df=df.append(data, ingnore_index=True)
+        df.to_csv(r'data\property_rents.csv', index=False)
 
 

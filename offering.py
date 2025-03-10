@@ -76,7 +76,7 @@ def show_offering():
     with col9:
 
         if st.button("Submit"):
-            current_date = datetime.now().strftime("%Y-%m-%d")
+            current_date = datetime.now().strftime("%d-%m-%Y")
 
 
     #---Create a date frame to store user input---#
