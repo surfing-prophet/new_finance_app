@@ -18,24 +18,24 @@ def show_utilities():
 
     #style definition
     # Define a style for no wrapping
-    style = ("display: inline-block; vertical-align: middle; white-space: nowrap; font-family: 'Inter'; "
-             "font-size: 40px; font-weight: medium;")
+    #style = ("display: inline-block; vertical-align: middle; white-space: nowrap; font-family: 'Inter'; "
+             #"font-size: 18px; font-weight: medium;")
 
     # Add some blank space at the top
     # Add custom CSS for vertical alignment and font styling
-    st.markdown("""
-        <style>
-            .st-dd, .stTextInput > div > div > input, .stButton > button, .stSlider > div {
-                vertical-align: middle !important;
-                font-family: 'Inter';
-                font-size: 30px;
-                font-weight: 500;
-            }
-            .stTextInput > div > div > input {
-                margin-top: 5px !important;
-            }
-        </style>
-        """,unsafe_allow_html=True)
+    #st.markdown("""
+        #<style>
+            #.st-dd, .stTextInput > div > div > input, .stButton > button, .stSlider > div {
+                #vertical-align: middle !important;
+                #font-family: 'Inter';
+                #font-size: 18px;
+                #font-weight: 500;
+            #}
+            #.stTextInput > div > div > input {
+            #    margin-top: 5px !important;
+           # }
+        #</style>
+        #""",unsafe_allow_html=True)
 
     col3,col4,col5,col6=st.columns([2,2,2,1])
 
@@ -74,7 +74,7 @@ def show_utilities():
         st.markdown(f"<h1></h1>", unsafe_allow_html=True)
         st.markdown(f"<h2></h2>", unsafe_allow_html=True)
         st.markdown(f"<h2></h2>", unsafe_allow_html=True)
-        st.markdown(f"<b><h4> Reference : </b></h4>", unsafe_allow_html=True)
+        st.markdown(f"<b><h4></b></h4>", unsafe_allow_html=True)
         ref=st.text_input("Please enter a reference", placeholder="Payment Reference", key=REF)
 
     col7,col8,col9, col10 = st.columns([2,2,2,2])

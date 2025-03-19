@@ -1,4 +1,5 @@
 # function.py
+from PIL.ImImagePlugin import number
 FILEPATH_BANKING = "data/banking.csv"
 FILEPATH_OFFERING = "data/offering.csv"
 FILEPATH_GROUPS="data/booking_groups.txt"
@@ -7,8 +8,9 @@ FILEPATH_COTTAGES_RENT="data/property_rents.csv"
 import streamlit as st
 import pandas as pd
 import datetime as datetime
-
-
+from pdfrw import PdfReader as PdfReaderW, PdfWriter as PdfWriterW
+import os
+import openpyxl
 ##---Defining the menu items---#
 # Display the selected page
 def show_home():
@@ -109,4 +111,140 @@ def create_expense_series(cottage, reason, amount):
         'reason': reason,
         'amount paid': round(float(amount), 2)
     })
+
+#Final Outputs for Standard forms of accounts
+
+def offering_summation():
+    df2 = pd.read_csv(r'data\offering.csv')
+    total = df2['amount'].sum()
+    return total
+
+def read_to_columns(filepath):
+    with open(filepath, 'r') as file:
+        lines=file.readlines()
+        data = [line.strip() for line in lines]
+    df=pd.DataFrame([data],columns=['church Name','circuit','district','id_number'])
+    return df
+
+def stewards_info(filepath):
+    with open (filepath,'r') as file:
+        lines=file.readlines()
+        data=[line.strip() for line in lines]
+    df=pd.DataFrame([data],columns=['minister','steward1','steward2','steward3','steward4','treasurer'])
+    return df
+
+def extract_fields_from_excel(file):
+    # Read the Excel file (assuming the first sheet contains the form fields)
+    df = pd.read_excel(file, sheet_name=0)  # Read the first sheet
+    fields = df.columns.tolist()  # Get the headers as field names
+    return fields
+
+
+def stewards_data_excel(filepath):
+    # Load the data from the text file
+    df = pd.read_csv(filepath)  # or pd.read_table depending on your file format
+    # Check if the required columns exist
+    required_columns = ['minister', 'steward1', 'steward2', 'steward3', 'steward4', 'treasurer']
+    for column in required_columns:
+        if column not in df.columns:
+            raise ValueError(f"Missing column: {column}")
+
+    # Extract the necessary information
+    minister = df['minister'].iloc[0]
+    steward1 = df['steward1'].iloc[0]
+    steward2 = df['steward2'].iloc[0]
+    steward3 = df['steward3'].iloc[0]
+    steward4 = df['steward4'].iloc[0]
+    treasurer = df['treasurer'].iloc[0]
+
+    # Return all values as a dictionary
+    return {
+        "minister": minister,
+        "steward1": steward1,
+        "steward2": steward2,
+        "steward3": steward3,
+        "steward4": steward4,
+        "treasurer": treasurer,
+    }
+#sum of yearly offerings for standard forms of accounts
+def total_offerings ():
+    df_offering = pd.read_csv(r'data\offering.csv')
+    df_offering_total =df_offering['amount'].sum()
+    return df_offering_total
+
+def lettings_sum(csv_paths, date_column, start_date, end_date, columns_to_sum):
+    total_sums ={col:0 for col in columns_to_sum} #initiate sums for the specified columns
+
+    for csv_path in csv_paths:
+
+        # Load the csv files
+        df = pd.read_csv(csv_path)
+
+
+        # Convert the date column to datetime
+        df[date_column] = pd.to_datetime(df[date_column], format='%d-%m-%Y')
+
+        #filter the DataFrame by date range
+        filtered_df = df[(df[date_column]>= start_date) & (df[date_column] <=end_date)]
+
+
+        #sum the specified columns
+        for col in columns_to_sum:
+            if col in filtered_df.columns:
+                total_sums[col] += filtered_df[col].sum()
+            else:
+                print(f"Warning: Column '{col}' not found in '{csv_path}'.")
+    return total_sums
+
+
+    csv_paths = ['data/group_payments.csv', 'data/property_rents.csv']
+    date_column = 'date'
+    start_date = '2024-09-01'
+    end_date = '2025-08-31'
+    columns_to_sum = ['amount','recieved rent']
+
+    results =lettings_sum(csv_paths, date_column, start_date, end_date, columns_to_sum)
+
+    # Display the total sums in Streamlit
+    st.subheader('Total Sums')
+    for column, total in results.items():
+        st.write(f"{column}: {total}")
+
+    #Create a new DataFrame to hold the total sums
+    total_sums_df=pd.DataFrame(results.items(),columns=['Column', 'Total Sum'])
+
+#   Define the path for the new CSV file
+    output_csv_path='data/total_lettings.csv'
+    #write the DataFrame to the csv file
+    total_sums_df.to_csv(output_csv_path, index=False)
+    st.success(f"Total sums have been written to {output_csv_path}")
+
+#banking information interest for standard form of accounts
+def bank_interest():
+    # Load the data from the text file
+    df = pd.read_csv('data/banking.csv')  # or pd.read_table depending on your file format
+    # Check if the required columns exist
+    required_columns = ['Bank','Balance (£)','recorded annual interest']
+    for column in required_columns:
+        if column not in df.columns:
+            raise ValueError(f"Missing column: {column}")
+
+    # Extract the necessary information
+    CFB_Balance = df['Balance (£)'].iloc[0]
+    TMCP_Balance = df['Balance (£)'].iloc[1]
+    HSBC_Balance = df['Balance (£)'].iloc[2]
+    CFB_Interest = df['interest'].iloc[0]
+    TMCP_Interest = df['interest'].iloc[1]
+    HSBC_Interest = df['interest'].iloc[2]
+
+    # Return all values as a dictionary
+    return {
+        "CFB Balance": CFB_Balance,
+        "TMCP Balance": TMCP_Balance,
+        "HSBC Balance": HSBC_Balance,
+        "CFB interest": CFB_Interest,
+        "TMCP interest": TMCP_Interest,
+        "HSBC interest": HSBC_Interest,
+    }
+
 

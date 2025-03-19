@@ -29,7 +29,7 @@ def show_home():
             st.markdown(f'<h3>{row["circuit"]} in {row["district"]}</h3>', unsafe_allow_html=True)
     with col5:
         for index, row in df.iterrows():
-            st.markdown(f"<h4>{row['numerical data']}</h4>", unsafe_allow_html=True)
+            st.markdown(f"<h4>{row['number']}</h4>", unsafe_allow_html=True)
 
     st.markdown("""<b><h5><i>Simplifying the role of treasurer within the Methodist Church </b></h5></i>""",
                 unsafe_allow_html=True)
