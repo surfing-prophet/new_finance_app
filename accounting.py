@@ -73,8 +73,8 @@ def show_accounting():
                                 )
                     elif csv_path=='data/total_lettings.csv':
                         for index in range(len(csv_data)):
-                            amount_cell_row=20 + index
-                            rent_cell_row=20 + index
+                            amount_cell_row=22 + index
+                            rent_cell_row=22 + index
 
                             if amount_cell_row < len(excel_data):  # Ensure we don't go out of bounds
                                 # Update balance
@@ -91,6 +91,12 @@ def show_accounting():
                                     f"Cell {chr(65 + 3)}{rent_cell_row + 1} will be updated with: "
                                     f"{update_values[(rent_cell_row, 3)]} (Row {index + 1})"
                                 )
+                    elif csv_path == 'data/offering.csv':  # Check if the current CSV is offering.csv
+                        # Get the last entry of the "Running Total" column
+                        last_running_total = csv_data['Running Total'].iloc[-1]
+                        update_values[cell] = last_running_total  # Update the specific cell
+                        update_messages.add(f"Cell {chr(65 + col)}{row + 1} will be updated with the last Running Total: "
+                                            f"{last_running_total}")
                     else:
                         # For other CSVs, just take the first value
                         update_values[cell] = csv_data[column_name].iloc[0]
