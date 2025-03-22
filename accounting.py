@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import openpyxl
 from datetime import datetime
-from functions import total_offerings, bank_interest
+from functions import total_offerings, bank_interest,lettings_sum
 
 
 def show_accounting():
@@ -27,7 +27,28 @@ def show_accounting():
         st.markdown(f'<b><h2> Yearly Offering so far (including Gift Aid) is : £{Yearly_offering:.2f}</b></h2>',
                     unsafe_allow_html=True)
 
+    with col4:
+        csv_paths = ['data/group_payments.csv', 'data/property_rents.csv']
+        date_column = 'date'
+        start_date = '2024-09-01'
+        end_date = '2025-08-31'
+        columns_to_sum = ['amount', 'rent']
 
+        results = lettings_sum(csv_paths, date_column, start_date, end_date, columns_to_sum)
+
+        # Display the total sums in Streamlit
+        st.subheader('Total Sums')
+        for column, total in results.items():
+            st.write(f"{column}: {total}")
+
+        # Create a new DataFrame to hold the total sums
+        total_sums_df = pd.DataFrame(results.items(), columns=['Column', 'Total Sum'])
+
+        #   Define the path for the new CSV file
+        output_csv_path = 'data/total_lettings.csv'
+        # write the DataFrame to the csv file
+        total_sums_df.to_csv(output_csv_path, index=False)
+        st.success(f"Total sums have been written to {output_csv_path}")
     # Load the data from the Excel file
     file_path = r'data\Church-receipts-and-payments-2024.xlsx'
     data = pd.ExcelFile(file_path)
