@@ -184,8 +184,8 @@ def show_accounting():
             (19, 3): 'recorded annual interest',  # Update cell D20 with interest from HSBC account.
         },
         {
-            (21,2): 'Total Sum',
-            (22,2): 'Total Sum',
+            (21,2): 'Total Sum', #update to total_lettings columns
+            (22,2): 'Total Sum', #update to total lettings columns
         }
     ]
 

@@ -27,6 +27,8 @@ def show_church():
     st.switch_page("Church.py")
 def show_charities():
     st.switch_page("charities.py")
+def show_new_data():
+    st.switch_page("new_or_initial_info.py")
 
 
 #---calling Banking information ---#

@@ -8,6 +8,7 @@ from utilities import show_utilities
 from properties import show_properties
 from church import show_church
 from accounting import show_accounting
+from new_or_initial_info import collected_data
 
 #---create page homepage ---#
 st.set_page_config(layout='wide')
@@ -32,9 +33,9 @@ from streamlit_option_menu import option_menu
 
 with st.sidebar:
     selected = option_menu("Main Menu", ["Home", 'Offering', 'Bookings', 'Utilities',
-                                          'Property', 'Church','IN/OUT','Accounting'],
+                                          'Property', 'Church','IN/OUT','Accounting','','New or initial Data'],
                            icons=['bank', 'currency-pound', 'calendar-date', 'fire',
-                                  'houses', 'hospital', 'gift','clipboard-data'],
+                                  'houses', 'hospital', 'gift','clipboard-data','','card-checklist'],
                            menu_icon="cast", default_index=0)
 
 if selected == "Home":
@@ -53,3 +54,5 @@ elif selected == "IN/OUT":
     show_charities()
 elif selected=="Accounting":
     show_accounting()
+elif selected=="New or initial Data":
+    collected_data()

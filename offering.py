@@ -28,6 +28,7 @@ def show_offering():
         st.markdown(f"<b><h4> Sunday Collection : </b></h4>", unsafe_allow_html=True)
         st.markdown(f"<b><h4> Standing Orders : </b></h4>", unsafe_allow_html=True)
         st.markdown(f"<b><h4> Other Reason :</b></h4>", unsafe_allow_html=True)
+        st.markdown(f"<b><h4> Gift Aid :</b></h4>", unsafe_allow_html=True)
 
 
     with col4:

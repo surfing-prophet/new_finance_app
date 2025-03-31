@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from functions import available_funds
+from openpyxl.styles.alignment import vertical_aligments
 
 df = pd.read_csv('data/church_info.csv', sep=',')
 db = pd.read_csv('data/banking.csv')
@@ -15,6 +16,7 @@ def show_home():
         st.header("Home Page")
         current_date = datetime.now().strftime("%d-%m-%y")
         st.markdown(f"<b><h5>{current_date}</b></h5>",unsafe_allow_html=True)
+
 
     with col2:
         st.image('images/Briggswath_Logo.png')
