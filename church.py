@@ -41,7 +41,7 @@ def show_church():
         assess_new=pd.concat([assess_data,assessment_df], ignore_index=True)
         assess_new.to_csv('data/assessment.csv',index=False)
         st.success('information has been written to the assessment file!')
-
+    st.markdown('<hr></hr>', unsafe_allow_html=True)
     #Church outgoings general data collection
     col3, col4 = st.columns(([2, 2]), vertical_alignment='bottom')
     with col3:
@@ -56,7 +56,7 @@ def show_church():
         contractor = st.text_input('contractor', placeholder=' enter firm/individual undertaking the work')
         amount_charged = st.text_input('amount charged', placeholder='enter the amount charged including VAT') or 0
         float_amount_charged = round(float(amount_charged), 2)
-    st.markdown(f'<hr></hr>', unsafe_allow_html=True)
+
     col7, col8, col9, col10 = st.columns([2, 2, 2, 2])
     with col8:
         if st.button('Submit work done'):
@@ -82,7 +82,7 @@ def show_church():
     st.markdown(f'<hr></hr>', unsafe_allow_html=True)
 
     st.subheader('Miscellaneous Payments')
-    st.markdown(f'<hr></hr>', unsafe_allow_html=True)
+
 
     col10,col11 =st.columns([2,2])
     with col10:
