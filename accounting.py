@@ -126,16 +126,17 @@ def show_accounting():
             st.success("P2 : Section A saved to excel !")
         st.markdown('<hr></hr>', unsafe_allow_html=True)
 
-    #Section B page 2 data
-    st.subheader('Section B')
-    assessment=pd.read_csv('data/assessment.csv')
-    donations=pd.read_csv('data/donations.csv')
-    repairs_church=pd.read_csv('data/church_maintenance.csv')
-    repairs_cottages=pd.read_csv('data/property_expend.csv')
-    utilities=pd.read_csv('data/utilities.csv')
-    misc=pd.read_csv('data/misc.csv')
+        #Section B page 2 data
+        st.subheader('Section B')
+        assessment=pd.read_csv('data/assessment.csv')
+        donations=pd.read_csv('data/donations.csv')
+        repairs_church=pd.read_csv('data/church_maintenance.csv')
+        repairs_cottages=pd.read_csv('data/property_expend.csv')
+        utilities=pd.read_csv('data/utility.csv')
+        misc=pd.read_csv('data/misc_expend.csv')
 
-
+        with tab3:
+            st.subheader('Holding Page')
 
 
 
