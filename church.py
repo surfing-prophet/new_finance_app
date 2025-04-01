@@ -18,6 +18,31 @@ def show_church():
         st.image('images/Briggswath_Logo.png')
     st.markdown('<hr></hr>', unsafe_allow_html=True)
 
+    #circuit assessment data collection
+    st.subheader('Circuit Assessment')
+    assessment=st.text_input('Circuit assessment for 2024/25',placeholder='enter payment towards assessment')
+
+    # Assign default value if input is empty
+    if assessment:
+        try:
+            float_assessment = round(float(assessment), 2)
+        except ValueError:
+            st.error('Please enter a valid numeric value for the assessment.')
+            float_assessment = 0.0  # or handle this differently based on your needs
+    else:
+        float_assessment = 0.0  # Default value if no input is provided
+
+    assessment_df = pd.DataFrame({'date': [current_date], 'amount': [float_assessment]})
+
+
+    if st.button('Submit assessment payment'):
+        st.write(assessment_df)
+        assess_data=pd.read_csv('data/assessment.csv')
+        assess_new=pd.concat([assess_data,assessment_df], ignore_index=True)
+        assess_new.to_csv('data/assessment.csv',index=False)
+        st.success('information has been written to the assessment file!')
+
+    #Church outgoings general data collection
     col3, col4 = st.columns(([2, 2]), vertical_alignment='bottom')
     with col3:
         st.markdown(f"<b><h3><u> Building Maintenance, Purchases and Services</b></h3></u>", unsafe_allow_html=True)
@@ -55,3 +80,37 @@ def show_church():
             filtered_new_data = new_data[new_data['amount'] != 0]
             filtered_new_data.to_csv(r"data\church_maintenance.csv", index=False)
     st.markdown(f'<hr></hr>', unsafe_allow_html=True)
+
+    st.subheader('Miscellaneous Payments')
+    st.markdown(f'<hr></hr>', unsafe_allow_html=True)
+
+    col10,col11 =st.columns([2,2])
+    with col10:
+        st.markdown(f'</b><h4> Reason for Payment :</b></h4>',unsafe_allow_html=True)
+        reason=st.text_input('expenditure reason',placeholder='input reason for expenditure')
+    with col11:
+        st.markdown(f'<b><h4> Amount paid out</b></h4>', unsafe_allow_html=True)
+        amount=st.text_input('amount paid out', placeholder='enter amount in pounds')
+        # Default value for amount_float
+        amount_float = 0.0
+        if amount:
+            try:
+                amount_float = round(float(amount), 2)
+            except ValueError:
+                st.error('Please enter a valid numeric value for the amount.')
+                amount_float = 0.0  # Default to 0 if input is invalid
+
+    # Create a Series for miscellaneous expenses
+    misc_expend = pd.DataFrame({
+        'date': [current_date],
+        'reason': [reason],
+        'amount': [amount_float]
+    })
+
+    if st.button('Submit Miscellaneous Payment'):
+        misc_df=pd.read_csv('data/misc_expend.csv')
+        misc_new=pd.concat([misc_df,misc_expend], ignore_index=True)
+        misc_new.to_csv('data/misc_expend.csv', index=False)
+        st.dataframe(misc_expend)
+        st.success('the information has been uploaded')
+

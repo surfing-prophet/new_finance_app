@@ -99,7 +99,7 @@ def show_offering():
 
     with col10:
         if st.button("Confirm"):
-            current_date = datetime.now().strftime("%Y-%m-%d")
+            current_date = datetime.now().strftime("%d-%m-%y")
         #---open user_df again---#
             Sunday_Off = pd.Series({'date': current_date, 'reason': "Sunday Collection", 'amount': sc_float})
             Stand_ord = pd.Series({'date': current_date, 'reason': "Standing Orders", 'amount': so_float})
@@ -116,9 +116,10 @@ def show_offering():
             df = pd.read_csv("data\offering.csv")
             df_income=pd.read_csv("data\other_income.csv")
             df = pd.concat([df,pd.DataFrame(data_copy1)])
+            df_income_new=pd.concat([df_income,pd.DataFrame(income_other)])
             filtered_df=df[df['amount'] !=0]
             filtered_df.to_csv("data\offering.csv", index=False)
-            df_income.to_csv("data\other_income.csv", index=False)
+            df_income_new.to_csv("data\other_income.csv", index=False)
 
 
     with col11:

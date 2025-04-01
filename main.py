@@ -33,7 +33,7 @@ from streamlit_option_menu import option_menu
 
 with st.sidebar:
     selected = option_menu("Main Menu", ["Home", 'Offering', 'Bookings', 'Utilities',
-                                          'Property', 'Church','IN/OUT','Accounting','','New or initial Data'],
+                                          'Property', 'Church','Donations','Accounting','','New or initial Data'],
                            icons=['bank', 'currency-pound', 'calendar-date', 'fire',
                                   'houses', 'hospital', 'gift','clipboard-data','','card-checklist'],
                            menu_icon="cast", default_index=0)

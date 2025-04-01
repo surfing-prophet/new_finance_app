@@ -56,6 +56,7 @@ def show_accounting():
         postholder_info=pd.read_csv('data/stewards.csv')
         st.dataframe(postholder_info)
 
+
         if st.button('Submit postholder information'):
             if not postholder_info.empty:
                 post=postholder_info.iloc[0]
@@ -82,20 +83,57 @@ def show_accounting():
             st.success("Postholder information P1 saved to excel !")
         st.markdown('<hr></hr>', unsafe_allow_html=True)
     with tab2:
+
+        #Streamlit Datafile creation Page 2 Section A
         st.header("Page 2 of the short form account excel file :")
         st.markdown(f"<hr></hr>", unsafe_allow_html=True)
         st.subheader("Section A")
         offerings=pd.read_csv('data/offering.csv')
         lettings=pd.read_csv('data/total_lettings.csv')
         banking=pd.read_csv('data/banking.csv')
+        other_income=pd.read_csv('data/other_income.csv')
         total_offering = offerings['amount'].sum()
-        total_df = pd.DataFrame({'Total Offerings and tax recovered': [total_offering]}).map(lambda x: f"{x:.2f}")
+        total_df = pd.DataFrame({'Total Offerings and tax recovered': [total_offering]})
         total_lettings=lettings['Total Sum'].sum()
-        lettings_df=pd.DataFrame({'Lettings':[total_lettings]}).map(lambda x:f"{x:.2f}")
+        lettings_df=pd.DataFrame({'Lettings':[total_lettings]})
         banking_interest=banking['recorded annual interest'].sum()
-        banking_interest_df=pd.DataFrame({'Bank and CFB interest':[banking_interest]}).map(lambda x: f"{x:.2f}")
-        final_df = pd.concat([total_df,lettings_df,banking_interest_df],axis=1)
-        st.dataframe(final_df)
+        banking_interest_df=pd.DataFrame({'Bank and CFB interest':[banking_interest]})
+        total_other=other_income['amount'].sum()
+        other_df=pd.DataFrame({'other receipts':[total_other]})
+        final_df = pd.concat([total_df,banking_interest_df,lettings_df,other_df],axis=1)
+        st.dataframe(final_df.style.format("{:.2f}"))
+
+        # loading excel sheet
+        workbook = ox.load_workbook('data/Church-receipts-and-payments-2025.xlsx')
+        sheet = workbook['P2 R & P page']
+
+        if st.button('Submit Section A'):
+            if not final_df.empty:
+                secA=final_df.iloc[0]
+                if pd.notnull(secA['Total Offerings and tax recovered']):
+                    sheet['G7']=secA['Total Offerings and tax recovered']
+                    sheet['J7'] = secA['Total Offerings and tax recovered']
+                if pd.notnull(secA['Bank and CFB interest']):
+                    sheet['G8']=secA['Bank and CFB interest']
+                    sheet['J8'] = secA['Bank and CFB interest']
+                if pd.notnull(secA['Lettings']):
+                    sheet['G9']=secA['Lettings']
+                    sheet['J9'] = secA['Lettings']
+                if pd.notnull(secA['other receipts']):
+                    sheet['G10']=secA['other receipts']
+                    sheet['J10'] = secA['other receipts']
+            workbook.save('data/Church-receipts-and-payments-2025.xlsx')
+            st.success("P2 : Section A saved to excel !")
+        st.markdown('<hr></hr>', unsafe_allow_html=True)
+
+    #Section B page 2 data
+    st.subheader('Section B')
+    assessment=pd.read_csv('data/assessment.csv')
+    donations=pd.read_csv('data/donations.csv')
+    repairs_church=pd.read_csv('data/church_maintenance.csv')
+    repairs_cottages=pd.read_csv('data/property_expend.csv')
+    utilities=pd.read_csv('data/utilities.csv')
+    misc=pd.read_csv('data/misc.csv')
 
 
 
