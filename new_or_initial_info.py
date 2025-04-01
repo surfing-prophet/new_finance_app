@@ -30,6 +30,7 @@ def collected_data():
         gift_aid_no = st.text_input('Gift aid number', placeholder='gift aid number')
     st.markdown(f"<hr></hr>", unsafe_allow_html=True)
 
+
     if st.button("Submit Church Info"):
         data={
             'name':[church],
@@ -42,7 +43,7 @@ def collected_data():
         df=pd.DataFrame(data)
 
         #append to csv
-        df.to_csv('data/church_info.csv',mode='a',header=False,index=False)
+        df.to_csv('data/church_info.csv',mode='w',header=False,index=False)
         st.success("Church information updated !")
 
 
@@ -59,6 +60,22 @@ def collected_data():
         steward6 = st.text_input('name of steward', placeholder='steward 6')
         steward7 = st.text_input('name of steward', placeholder='steward 7')
         treasurer=st.text_input('name of treasurer',placeholder='treasurer')
+
+    if st.button("Submit Postholder information"):
+        data={
+            'minister':[minister],
+            'steward1':[steward1],
+            'steward2':[steward2],
+            'steward3':[steward3],
+            'steward4':[steward4],
+            'steward5':[steward5],
+            'steward6':[steward6],
+            'steward7':[steward7],
+            'treasurer':[treasurer]
+        }
+        df=pd.DataFrame(data)
+        df.to_csv('data/stewards.csv',mode='w',header=True,index=False)
+        st.success('Postholder information updated !')
 
 
 

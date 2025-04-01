@@ -89,10 +89,12 @@ def show_offering():
             Stand_ord =pd.Series({'date': current_date,'reason':"Standing Orders",'amount':so_float })
             other_col =pd.Series({'date': current_date,'reason':reason,'amount':other_float })
             gift_aid = pd.Series({'date':current_date, 'reason':"ANNUAL GIFT AID",'amount':gift_aid_float})
-            user_df=pd.DataFrame([Sunday_Off,Stand_ord,other_col, gift_aid])
+            user_df=pd.DataFrame([Sunday_Off,Stand_ord,gift_aid])
+            income_other=pd.DataFrame([other_col])
             data_copy1=user_df.copy()
             data_copy2=user_df.copy()
             st.dataframe(data_copy1)
+            st.dataframe(income_other)
 
 
     with col10:
@@ -103,21 +105,21 @@ def show_offering():
             Stand_ord = pd.Series({'date': current_date, 'reason': "Standing Orders", 'amount': so_float})
             other_col = pd.Series({'date': current_date, 'reason': reason, 'amount': other_float})
             gift_aid = pd.Series({'date': current_date, 'reason': "ANNUAL GIFT AID", 'amount': gift_aid_float})
-            user_df = pd.DataFrame([Sunday_Off, Stand_ord, other_col, gift_aid])
+            user_df = pd.DataFrame([Sunday_Off, Stand_ord,gift_aid])
+            income_other=pd.DataFrame([other_col])
 
             data_copy1 = user_df.copy()
             data_copy2 = user_df.copy()
             st.dataframe(data_copy2)
+            st.dataframe(income_other)
         # ---open offering.csv from data---#
             df = pd.read_csv("data\offering.csv")
+            df_income=pd.read_csv("data\other_income.csv")
             df = pd.concat([df,pd.DataFrame(data_copy1)])
             filtered_df=df[df['amount'] !=0]
             filtered_df.to_csv("data\offering.csv", index=False)
+            df_income.to_csv("data\other_income.csv", index=False)
 
-            # Calculate the running total
-            filtered_df['Running Total'] = filtered_df['amount'].cumsum()
-
-            filtered_df.to_csv("data/offering.csv", index=False)
 
     with col11:
         st.write("")
