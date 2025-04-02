@@ -49,7 +49,6 @@ def show_utilities():
         st.markdown(f"<h1></h1>", unsafe_allow_html=True)
         st.markdown(f"<h2></h2>", unsafe_allow_html=True)
         st.markdown(f"<h2></h2>", unsafe_allow_html=True)
-        st.markdown(f"<b><h4></b></h4>", unsafe_allow_html=True)
         ref=st.text_input("Please enter a reference", placeholder="Payment Reference", key=REF)
 
     col7,col8,col9, col10 = st.columns([2,2,2,2])

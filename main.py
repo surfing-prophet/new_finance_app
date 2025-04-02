@@ -8,6 +8,7 @@ from utilities import show_utilities
 from properties import show_properties
 from church import show_church
 from accounting import show_accounting
+from donations import show_donations
 from new_or_initial_info import collected_data
 
 #---create page homepage ---#
@@ -50,8 +51,8 @@ elif selected=="Property":
     show_properties()
 elif selected=='Church':
     show_church()
-elif selected == "IN/OUT":
-    show_charities()
+elif selected == "Donations":
+    show_donations()
 elif selected=="Accounting":
     show_accounting()
 elif selected=="New or initial Data":

@@ -135,6 +135,55 @@ def show_accounting():
         utilities=pd.read_csv('data/utility.csv')
         misc=pd.read_csv('data/misc_expend.csv')
 
+        #populate new DataFrame for output
+        total_assessment=assessment['amount'].sum()
+        assessment_df=pd.DataFrame({'Circuit Assessment or Share':[total_assessment]})
+        total_donations_in=donations['amount in'].sum()
+        total_donations_out=donations['amount out'].sum()
+        total_donations=total_donations_out-total_donations_in
+        donation_df=pd.DataFrame({'Donations':[total_donations]})
+        total_repairs_church=repairs_church['amount'].sum()
+
+        total_repairs_cottages=repairs_cottages['amount paid'].sum()
+        total_repairs=total_repairs_church+total_repairs_cottages
+        maintenance_df=pd.DataFrame({'Repairs and Maintenance':[total_repairs]})
+
+        total_utilities=utilities['amount'].sum()
+        utilities_df=pd.DataFrame({'Utilities (Insurance, Water charges,heating & lighting)':[total_utilities]})
+
+        total_misc=misc['amount'].sum()
+        misc_df=pd.DataFrame({'Other Payments':[total_misc]})
+
+        secB_final_df = pd.concat([assessment_df,donation_df,maintenance_df,utilities_df,misc_df], axis=1)
+        st.dataframe(secB_final_df.style.format("{:.2f}"))
+
+        # loading excel sheet
+        workbook = ox.load_workbook('data/Church-receipts-and-payments-2025.xlsx')
+        sheet = workbook['P2 R & P page']
+
+        if st.button('Submit Section B'):
+            if not secB_final_df.empty:
+                secB=secB_final_df.iloc[0]
+                if pd.notnull(secB['Circuit Assessment or Share']):
+                    sheet['G15']=secB['Circuit Assessment or Share']
+                    sheet['J15'] =secB['Circuit Assessment or Share']
+                if pd.notnull(secB['Donations']):
+                    sheet['G16']=secB['Donations']
+                    sheet['J16'] =secB['Donations']
+                if pd.notnull(secB['Repairs and Maintenance']):
+                    sheet['G17']=secB['Repairs and Maintenance']
+                    sheet['J17'] =secB['Repairs and Maintenance']
+                if pd.notnull(secB['Utilities (Insurance, Water charges,heating & lighting)']):
+                    sheet['G18']=secB['Utilities (Insurance, Water charges,heating & lighting)']
+                    sheet['J18'] =secB['Utilities (Insurance, Water charges,heating & lighting)']
+                if pd.notnull(secB['Other Payments']):
+                    sheet['G20']=secB['Other Payments']
+                    sheet['J20'] =secB['Other Payments']
+                st.dataframe(secB_final_df.style.format("{:.2f}"))
+            workbook.save('data/Church-receipts-and-payments-2025.xlsx')
+            st.success("P2 : Section B saved to excel !")
+        st.markdown('<hr></hr>', unsafe_allow_html=True)
+
         with tab3:
             st.subheader('Holding Page')
 
