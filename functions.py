@@ -2,9 +2,9 @@
 from PIL.ImImagePlugin import number
 FILEPATH_BANKING = "data/banking.csv"
 FILEPATH_OFFERING = "data/offering.csv"
-FILEPATH_GROUPS="data/booking_groups.txt"
-FILEPATH_UTILITIES="data/utility.csv"
-FILEPATH_COTTAGES_RENT="data/property_rents.csv"
+FILEPATH_GROUPS= "data/booking_groups.txt"
+FILEPATH_UTILITIES= "data/utility.csv"
+FILEPATH_COTTAGES_RENT= "data/property_rents.csv"
 import streamlit as st
 import pandas as pd
 import datetime as datetime
@@ -24,7 +24,7 @@ def show_utilities():
 def show_property():
     st.switch_page("properties.py")
 def show_church():
-    st.switch_page("Church.py")
+    st.switch_page("church.py")
 def show_charities():
     st.switch_page("charities.py")
 def show_new_data():
@@ -117,7 +117,7 @@ def create_expense_series(cottage, reason, amount):
 #Final Outputs for Standard forms of accounts
 
 def offering_summation():
-    df2 = pd.read_csv(r'data\offering.csv')
+    df2 = pd.read_csv(r'data/offering.csv')
     total = df2['amount'].sum()
     return total
 
@@ -170,7 +170,7 @@ def stewards_data_excel(filepath):
     }
 #sum of yearly offerings for standard forms of accounts
 def total_offerings ():
-    df_offering = pd.read_csv(r'data\offering.csv')
+    df_offering = pd.read_csv(r'data/offering.csv')
     df_offering_total =df_offering['amount'].sum()
     return df_offering_total
 

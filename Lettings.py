@@ -44,7 +44,7 @@ def lettings_sum(csv_paths, date_column, start_date, end_date, columns_to_sum):
 total_sums_df=pd.DataFrame(results.items(),columns=['Column', 'Total Sum'])
 
 #Define the path for the new CSV file
-output_csv_path='data/total_lettings.csv'
+output_csv_path= 'data/total_lettings.csv'
 #write the DataFrame to the csv file
 total_sums_df.to_csv(output_csv_path, index=False)
 st.success(f"Total sums have been written to {output_csv_path}")

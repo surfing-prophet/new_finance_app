@@ -87,10 +87,10 @@ def show_properties():
             user_df2 = [two_CHL]
             st.dataframe(user_df2)
 
-            new_data = pd.read_csv(r"data\property_rents.csv")
+            new_data = pd.read_csv(r"data/property_rents.csv")
             new_data = pd.concat([new_data, pd.DataFrame(user_df2)])
             filtered_new_data = new_data[new_data['recieved rent'] != 0]
-            filtered_new_data.to_csv(r"data\property_rents.csv", index=False)
+            filtered_new_data.to_csv("data/property_rents.csv", index=False)
             st.markdown(f"<b><h5>The following has been added.</b></hr>", unsafe_allow_html=True)
 
     with colsub4:
@@ -114,10 +114,10 @@ def show_properties():
             user_df4 = [four_CHL]
             st.dataframe(user_df4)
 
-            new_data = pd.read_csv(r"data\property_rents.csv")
+            new_data = pd.read_csv(r"data/property_rents.csv")
             new_data = pd.concat([new_data, pd.DataFrame(user_df4)])
             filtered_new_data = new_data[new_data['recieved rent'] != 0]
-            filtered_new_data.to_csv(r"data\property_rents.csv", index=False)
+            filtered_new_data.to_csv("data/property_rents.csv", index=False)
             st.markdown(f"<b><h5>The following has been added.</b></hr>", unsafe_allow_html=True)
 
     st.markdown(f'<hr></hr>', unsafe_allow_html=True)
@@ -159,10 +159,10 @@ def show_properties():
             current_date=datetime.now().strftime("%d-%m-%Y")
             exp2_new=pd.Series({'date':current_date,'cottage':"2 Carr Hill Lane",
                             'reason': car2_maint,'amount paid': car2_maint_float})
-            new_data = pd.read_csv(r"data\property_expend.csv")
+            new_data = pd.read_csv(r"data/property_expend.csv")
             new_data = pd.concat([new_data, pd.DataFrame([exp2_new])])
             filtered_new_data = new_data[new_data['amount paid'] != 0]
-            filtered_new_data.to_csv(r"data\property_expend.csv",index=False)
+            filtered_new_data.to_csv("data/property_expend.csv",index=False)
             st.dataframe([exp2_new])
             st.markdown(f"<b><h5>The following has been added.</b></hr>", unsafe_allow_html=True)
 
@@ -180,9 +180,9 @@ def show_properties():
             current_date=datetime.now().strftime("%d-%m-%Y")
             exp4_new=pd.Series({'date':current_date,'cottage':"4 Carr Hill Lane",
                             'reason': car4_maint,'amount paid': car4_maint_float})
-            new_data = pd.read_csv(r"data\property_expend.csv")
+            new_data = pd.read_csv(r"data/property_expend.csv")
             new_data = pd.concat([new_data, pd.DataFrame([exp4_new])])
             filtered_new_data = new_data[new_data['amount paid'] != 0]
-            filtered_new_data.to_csv(r"data\property_expend.csv",index=False)
+            filtered_new_data.to_csv("data/property_expend.csv",index=False)
             st.dataframe([exp4_new])
             st.markdown(f"<b><h5>The following has been added.</b></hr>", unsafe_allow_html=True)

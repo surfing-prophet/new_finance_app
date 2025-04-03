@@ -79,7 +79,7 @@ def show_bookings():
 
             # ---open offering.csv from data---#
 
-            df = pd.read_csv(r"data\group_payments.csv")
+            df = pd.read_csv(r"data/group_payments.csv")
             df = pd.concat([df, pd.DataFrame(data_copy1)])
             filtered_df = df[df['amount'] != 0]
             filtered_df.to_csv(r"data\group_payments.csv", index=False)

@@ -75,7 +75,7 @@ def show_church():
             df_user = [df_main_church]
             st.dataframe(df_user)
 
-            new_data = pd.read_csv(r'data\church_maintenance.csv')
+            new_data = pd.read_csv(r'data/church_maintenance.csv')
             new_data = pd.concat([new_data, pd.DataFrame(df_user)])
             filtered_new_data = new_data[new_data['amount'] != 0]
             filtered_new_data.to_csv(r"data\church_maintenance.csv", index=False)

@@ -113,13 +113,13 @@ def show_offering():
             st.dataframe(data_copy2)
             st.dataframe(income_other)
         # ---open offering.csv from data---#
-            df = pd.read_csv("data\offering.csv")
-            df_income=pd.read_csv("data\other_income.csv")
+            df = pd.read_csv("data/offering.csv")
+            df_income=pd.read_csv("data/other_income.csv")
             df = pd.concat([df,pd.DataFrame(data_copy1)])
             df_income_new=pd.concat([df_income,pd.DataFrame(income_other)])
             filtered_df=df[df['amount'] !=0]
-            filtered_df.to_csv("data\offering.csv", index=False)
-            df_income_new.to_csv("data\other_income.csv", index=False)
+            filtered_df.to_csv("data/offering.csv", index=False)
+            df_income_new.to_csv("data/other_income.csv", index=False)
 
 
     with col11:

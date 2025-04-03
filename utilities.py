@@ -86,10 +86,10 @@ def show_utilities():
                             unsafe_allow_html=True)
 
 
-                new_data = pd.read_csv(r"data\utility.csv")
+                new_data = pd.read_csv(r"data/utility.csv")
                 new_data = pd.concat([new_data, pd.DataFrame(data_util2)])
                 filtered_new_data = new_data[new_data['amount'] != 0]
-                filtered_new_data.to_csv(r"data\utility.csv", index=False)
+                filtered_new_data.to_csv("data/utility.csv", index=False)
 
 
 

@@ -22,7 +22,7 @@ with col1:
     st.markdown(f'<b><h2> Yearly Offering so far (including Gift Aid) is : £{Yearly_offering:.2f}</b></h2>',
                 unsafe_allow_html=True)
 # Load the data from the Excel file
-file_path = r'data\Church-receipts-and-payments-2024.xlsx'
+file_path = r'data/Church-receipts-and-payments-2024.xlsx'
 data = pd.ExcelFile(file_path)
 
 # Create a sidebar for navigation
@@ -63,7 +63,7 @@ def display_front_page():
 if st.button('Submit to Excel'):
 
     try:
-        excel_file = r'data\Church-receipts-and-payments-2025.xlsx'
+        excel_file = r'data/Church-receipts-and-payments-2025.xlsx'
         wb = load_workbook(excel_file)
         ws = wb['P1 Front page']  # Get the active worksheet
 
